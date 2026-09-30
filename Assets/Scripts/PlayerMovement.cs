@@ -19,7 +19,9 @@ public class PlayerMovement : MonoBehaviour
     private float turnInput;            // horizontal input for rotation
     private bool isGrounded;            // true when standing on the ground
     private bool jumpRequested = false; // set in Update(), used later
-    // The methods from the next steps go here, inside the class
+
+    public bool IsGrounded => isGrounded;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Calculate forward movement relative to current facing direction
         moveDirection = transform.forward * moveZ;
-        
+
         // 3. Handle Jump Input
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -59,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-       private void MovePlayer()
+    private void MovePlayer()
     {
         // Calculate velocity based on current forward vector
         Vector3 targetVelocity = moveDirection * moveSpeed;
@@ -73,5 +75,4 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
     }
-
 }
